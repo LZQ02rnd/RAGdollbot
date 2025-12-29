@@ -72,8 +72,8 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-@bot.command(name='help', aliases=['h'])
-async def help_command(ctx):
+@bot.command(name='info', aliases=['h', 'about'])
+async def info_command(ctx):
     """Display help information."""
     help_text = f"""
 **RAGdollbot Help**
@@ -85,7 +85,7 @@ I'm a RAG (Retrieval-Augmented Generation) bot that can answer questions about t
 - Or use `{Config.BOT_PREFIX}ask <question>` command
 
 **Commands:**
-- `{Config.BOT_PREFIX}help` - Show this help message
+- `{Config.BOT_PREFIX}info` - Show this help message
 - `{Config.BOT_PREFIX}ask <question>` - Ask a question about the club
 - `{Config.BOT_PREFIX}ping` - Check if the bot is online
 
