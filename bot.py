@@ -43,8 +43,17 @@ async def on_message(message):
     bot_mentioned = bot.user in message.mentions
     is_command = message.content.startswith(Config.BOT_PREFIX)
     
-    # If bot is mentioned or message is a command, process it
-    if bot_mentioned or is_command:
+    # If it's a command, process commands first
+    if is_command:
+        # Check if it's a known command (let commands.py handle it)
+        ctx = await bot.get_context(message)
+        if ctx.command is not None:
+            # It's a valid command, let the command handler process it
+            await bot.process_commands(message)
+            return
+    
+    # If bot is mentioned or message starts with prefix (but not a command), treat as query
+    if bot_mentioned or (is_command and not ctx.command):
         # Remove mention and prefix for processing
         query = message.content
         if bot_mentioned:
@@ -68,7 +77,7 @@ async def on_message(message):
                     await message.reply(f"Sorry, I encountered an error: {str(e)}")
             return
     
-    # Process commands
+    # Process any remaining commands
     await bot.process_commands(message)
 
 
