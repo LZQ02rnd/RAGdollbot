@@ -96,8 +96,8 @@ Follow these steps to deploy your Discord RAG bot to Railway for 24/7 hosting.
 
 ## Cost
 
-- **Free tier**: $5 credit/month (usually enough for a Discord bot)
-- **Hobby plan**: $5/month (no sleeping, more resources)
+- **Free tier**: $5 credit/month (enough for a RAGdollbot)
+- **Hobby plan**: $20/month (more resources)
 
-Your bot will now run 24/7! 🚀
+RAGdollbot will now run 24/7! 🚀
 
