@@ -1,14 +1,14 @@
 # RAGdollbot
 
-A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers questions about your university club using a knowledge base.
+A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers questions about your university club or any community server using a knowledge base.
 
 ## Features
 
-- 🤖 **Intelligent Q&A**: Ask questions about your club and get accurate answers based on your knowledge base
-- 📚 **Knowledge Base**: Easy-to-manage text-based knowledge base
+- 🤖 **Intelligent Q&A**: Users can now ask questions about your club and get accurate answers based on your knowledge base instead of @Admins 24/7
+- 📚 **Knowledge Base**: Easy-to-manage text-based knowledge base! Type in any info you want.
 - 🔍 **Semantic Search**: Uses embeddings to find the most relevant information
 - 💬 **Discord Integration**: Works seamlessly in Discord servers
-- ⚙️ **Admin Commands**: Manage and reload the knowledge base from Discord
+- ⚙️ **Admin Commands**: Manage and reload the knowledge base from Discord. 
 
 ## Prerequisites
 
