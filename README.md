@@ -2,6 +2,8 @@
 
 A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers questions about your university club or any community server using a knowledge base.
 
+**Currently used by [McGill Esports Association](https://www.mcgillesports.ca/)**
+
 ## Features
 
 - 🤖 **Intelligent Q&A**: Users can now ask questions about your club and get accurate answers based on your knowledge base instead of @Admins 24/7
