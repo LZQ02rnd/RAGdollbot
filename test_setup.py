@@ -19,7 +19,7 @@ def test_imports():
     
     try:
         import langchain
-        print("  ✅ langchain")
+        print(f"  ✅ langchain {langchain.__version__}")
     except ImportError as e:
         print(f"  ❌ langchain: {e}")
         return False

@@ -139,7 +139,12 @@ Helpful Answer:"""
             }
         
         try:
-            result = self.qa_chain.invoke({"query": question})
+            # Try newer API first (LangChain 0.1.0+), fall back to older API
+            try:
+                result = self.qa_chain.invoke({"input": question})
+            except (TypeError, KeyError):
+                # Fall back to older API
+                result = self.qa_chain({"query": question})
             
             # Extract source information
             sources = []

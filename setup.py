@@ -83,7 +83,7 @@ def check_dependencies():
     
     try:
         import langchain
-        print(f"✅ langchain installed")
+        print(f"✅ langchain version {langchain.__version__}")
     except ImportError:
         print("❌ langchain is not installed")
         return False
