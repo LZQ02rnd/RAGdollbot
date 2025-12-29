@@ -46,7 +46,7 @@ class Config:
     def validate(cls):
         """Validate that required configuration is present."""
         if not cls.DISCORD_BOT_TOKEN:
-            raise ValueError("DISCORD_BOT_TOKEN is required in .env file")
+            raise ValueError("DISCORD_BOT_TOKEN environment variable is required. Set it in Railway's Variables tab.")
         
         # Validate LLM provider configuration
         if cls.LLM_PROVIDER == "groq":
