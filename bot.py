@@ -27,16 +27,28 @@ async def on_ready():
     
     # Auto-load knowledge base if it doesn't exist
     try:
-        # Check if knowledge base is empty
-        collection = rag.client.get_or_create_collection(name="club_knowledge")
-        if collection.count() == 0:
-            print("Knowledge base is empty, loading from files...")
+        # Check if knowledge base collection exists and has data
+        try:
+            collection = rag.client.get_collection(name="club_knowledge")
+            count = collection.count()
+            if count == 0:
+                print("Knowledge base is empty, loading from files...")
+                from knowledge_loader import load_knowledge_base
+                load_knowledge_base(rag)
+                print("Knowledge base loaded successfully!")
+            else:
+                print(f"Knowledge base already loaded ({count} chunks)")
+        except Exception:
+            # Collection doesn't exist, create and load it
+            print("Knowledge base collection not found, creating and loading...")
             from knowledge_loader import load_knowledge_base
             load_knowledge_base(rag)
             print("Knowledge base loaded successfully!")
     except Exception as e:
         print(f"Warning: Could not auto-load knowledge base: {e}")
         print("Use !reload_kb command to load it manually.")
+        import traceback
+        traceback.print_exc()
     
     await bot.change_presence(
         activity=discord.Activity(
