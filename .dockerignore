@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vector Database (will be created fresh)
+chroma_db/
+
+# Test files
+test_*.py
+check_setup.py
+setup.py
+
+# Documentation
+*.md
+!README.md
+
+# Images
+*.jpg
+*.png
+*.gif
+
+# Railway
+railway.json
+
