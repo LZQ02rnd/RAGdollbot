@@ -1,6 +1,6 @@
-# Railway Deployment Guide
+# Railway Deployment Ultimate Guide
 
-Follow these steps to deploy your Discord RAG bot to Railway for 24/7 hosting.
+Follow these steps to deploy your Discord bot to Railway for 24/7 hosting.
 
 ## Prerequisites
 - GitHub account
