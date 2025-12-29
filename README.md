@@ -14,8 +14,10 @@ A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers quest
 
 - Python 3.8 or higher
 - Discord Bot Token ([How to create a Discord bot](https://discord.com/developers/applications))
-- DeepSeek API Key ([Get one here](https://platform.deepseek.com/api_keys))
-  - Optional: OpenAI API Key (only if you want to use OpenAI embeddings instead of free local embeddings)
+- **Free LLM Options:**
+  - **Groq API Key** (Recommended - FREE, no credit card needed) - [Get one here](https://console.groq.com/keys)
+  - **Ollama** (FREE, local) - [Install from here](https://ollama.ai)
+  - Optional: DeepSeek or OpenAI API Key (paid alternatives)
 
 ## Installation
 
@@ -31,8 +33,10 @@ A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers quest
    - Fill in your credentials:
      ```
      DISCORD_BOT_TOKEN=your_discord_bot_token_here
-     DEEPSEEK_API_KEY=your_deepseek_api_key_here
+     LLM_PROVIDER=groq
+     GROQ_API_KEY=your_groq_api_key_here
      ```
+   - **For FREE setup:** Get a Groq API key at [console.groq.com/keys](https://console.groq.com/keys) (free, no credit card needed)
    - Note: Embeddings use free local models by default (sentence-transformers). To use OpenAI embeddings instead, set `USE_OPENAI_EMBEDDINGS=true` and add your `OPENAI_API_KEY`.
 
 4. **Add your club information**
@@ -58,7 +62,7 @@ A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers quest
 - Use the command: `!ask What are the meeting times?`
 
 **Commands:**
-- `!help` - Show help information
+- `!info` or `!h` - Show help information
 - `!ask <question>` - Ask a question about the club
 - `!ping` - Check bot latency
 - `!reload_kb` - Reload knowledge base (admin only)
@@ -75,12 +79,15 @@ A Discord bot powered by RAG (Retrieval-Augmented Generation) that answers quest
 Edit `.env` file to customize:
 
 - `DISCORD_BOT_TOKEN` - Your Discord bot token (required)
-- `DEEPSEEK_API_KEY` - Your DeepSeek API key (required)
-- `DEEPSEEK_API_BASE` - DeepSeek API endpoint (default: `https://api.deepseek.com`)
-- `DEEPSEEK_MODEL` - DeepSeek model to use (default: `deepseek-chat`)
+- `LLM_PROVIDER` - LLM provider: `groq` (free), `ollama` (free local), `deepseek`, or `openai` (default: `groq`)
+- `GROQ_API_KEY` - Your Groq API key (required if `LLM_PROVIDER=groq`) - [Get free key](https://console.groq.com/keys)
+- `GROQ_MODEL` - Groq model to use (default: `llama-3.1-8b-instant`)
+- `OLLAMA_BASE_URL` - Ollama API URL (default: `http://localhost:11434`)
+- `OLLAMA_MODEL` - Ollama model name (default: `llama3.2`)
+- `DEEPSEEK_API_KEY` - DeepSeek API key (only if `LLM_PROVIDER=deepseek`)
+- `OPENAI_API_KEY` - OpenAI API key (only if `LLM_PROVIDER=openai`)
 - `EMBEDDING_MODEL` - Embedding model (default: `all-MiniLM-L6-v2` for free local embeddings)
 - `USE_OPENAI_EMBEDDINGS` - Use OpenAI embeddings instead (default: `false`)
-- `OPENAI_API_KEY` - OpenAI API key (only needed if `USE_OPENAI_EMBEDDINGS=true`)
 - `BOT_PREFIX` - Command prefix (default: `!`)
 - `MAX_MESSAGE_LENGTH` - Maximum response length (default: 2000)
 
@@ -101,13 +108,23 @@ RAGdollbot/
 
 ## How It Works
 
-1. **Knowledge Base**: Text files in `knowledge_base/` are split into chunks and embedded
+1. **Knowledge Base**: Text files in `knowledge_base/` are split into chunks and embedded using free local models (sentence-transformers)
 2. **Vector Store**: Embeddings are stored in ChromaDB for fast similarity search
 3. **Query Processing**: When a user asks a question:
    - The question is embedded
    - Similar chunks are retrieved from the knowledge base
-   - An LLM generates an answer based on the retrieved context
+   - A free LLM (Groq) generates an answer based on the retrieved context
 4. **Response**: The bot sends the generated answer to Discord
+
+## Free LLM Options
+
+This bot is designed to run **completely free**:
+
+- **Groq** (Recommended): Free API, fast responses, no credit card needed
+- **Ollama**: Free local LLM, runs on your machine (or Railway)
+- **Embeddings**: Free local models (sentence-transformers) - no API costs
+
+No paid services required!
 
 ## Troubleshooting
 
