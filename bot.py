@@ -11,7 +11,7 @@ Config.validate()
 # Initialize bot with intents
 intents = discord.Intents.default()
 intents.message_content = True
-intents.members = True
+# intents.members = True  # Optional - only needed for member-related features
 
 bot = commands.Bot(command_prefix=Config.BOT_PREFIX, intents=intents)
 

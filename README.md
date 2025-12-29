@@ -91,6 +91,23 @@ Edit `.env` file to customize:
 - `BOT_PREFIX` - Command prefix (default: `!`)
 - `MAX_MESSAGE_LENGTH` - Maximum response length (default: 2000)
 
+## 24/7 Hosting on Railway (Recommended)
+
+Deploy your bot to Railway for free 24/7 hosting:
+
+1. **Push to GitHub** (if not already done)
+2. **Sign up at [Railway.app](https://railway.app)** (free tier available)
+3. **Create New Project** → Deploy from GitHub repo
+4. **Add Environment Variables** in Railway's Variables tab:
+   - `DISCORD_BOT_TOKEN` - Your Discord bot token
+   - `LLM_PROVIDER=groq`
+   - `GROQ_API_KEY` - Your Groq API key
+   - `GROQ_MODEL=llama-3.1-8b-instant` (optional)
+5. **Deploy** - Railway will automatically build and deploy
+6. **Done!** Your bot runs 24/7
+
+See `RAILWAY_DEPLOY.md` for detailed instructions.
+
 ## Project Structure
 
 ```
@@ -100,6 +117,8 @@ RAGdollbot/
 ├── knowledge_loader.py    # Knowledge base loader
 ├── config.py              # Configuration management
 ├── requirements.txt       # Python dependencies
+├── Dockerfile             # Docker configuration for Railway
+├── Procfile               # Process file for Railway
 ├── .env.example           # Environment variables template
 ├── knowledge_base/        # Club information files
 │   └── *.txt             # Your club information
