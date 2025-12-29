@@ -24,6 +24,20 @@ async def on_ready():
     """Called when the bot is ready."""
     print(f'{bot.user} has connected to Discord!')
     print(f'Bot is in {len(bot.guilds)} guild(s)')
+    
+    # Auto-load knowledge base if it doesn't exist
+    try:
+        # Check if knowledge base is empty
+        collection = rag.client.get_or_create_collection(name="club_knowledge")
+        if collection.count() == 0:
+            print("Knowledge base is empty, loading from files...")
+            from knowledge_loader import load_knowledge_base
+            load_knowledge_base(rag)
+            print("Knowledge base loaded successfully!")
+    except Exception as e:
+        print(f"Warning: Could not auto-load knowledge base: {e}")
+        print("Use !reload_kb command to load it manually.")
+    
     await bot.change_presence(
         activity=discord.Activity(
             type=discord.ActivityType.listening,
