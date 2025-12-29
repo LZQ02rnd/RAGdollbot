@@ -1,0 +1,12 @@
+Thank you for using RAGdollbot!!!
+
+This is just a sample knowledge base file. Replace this with your actual club information.
+
+Example topics you might want to include:
+- Meeting schedule and location
+- Club events and activities
+- Membership requirements
+- Contact information
+- Club rules and guidelines
+
+Have fun! :)
