@@ -62,7 +62,15 @@ class RAGSystem:
             path=Config.CHROMA_PERSIST_DIRECTORY
         )
         
-        # Initialize vector store
+        # Initialize vector store (will create collection if it doesn't exist)
+        # Use get_or_create to ensure collection exists
+        try:
+            # Try to get existing collection
+            self.client.get_collection(name="club_knowledge")
+        except Exception:
+            # Collection doesn't exist, create it
+            self.client.create_collection(name="club_knowledge")
+        
         self.vectorstore = Chroma(
             client=self.client,
             collection_name="club_knowledge",

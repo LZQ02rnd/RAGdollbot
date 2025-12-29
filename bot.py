@@ -35,14 +35,51 @@ async def on_ready():
                 print("Knowledge base is empty, loading from files...")
                 from knowledge_loader import load_knowledge_base
                 load_knowledge_base(rag)
+                # Re-initialize vectorstore after loading
+                rag.vectorstore = Chroma(
+                    client=rag.client,
+                    collection_name="club_knowledge",
+                    embedding_function=rag.embeddings
+                )
+                # Re-create QA chain with new vectorstore
+                from langchain_core.runnables import RunnablePassthrough
+                from langchain_core.output_parsers import StrOutputParser
+                retriever = rag.vectorstore.as_retriever(search_kwargs={"k": 4})
+                def format_docs(docs):
+                    return "\n\n".join(doc.page_content for doc in docs)
+                rag.qa_chain = (
+                    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+                    | rag.prompt_template
+                    | rag.llm
+                    | StrOutputParser()
+                )
                 print("Knowledge base loaded successfully!")
             else:
                 print(f"Knowledge base already loaded ({count} chunks)")
-        except Exception:
+        except Exception as e:
             # Collection doesn't exist, create and load it
-            print("Knowledge base collection not found, creating and loading...")
+            print(f"Knowledge base collection not found ({e}), creating and loading...")
             from knowledge_loader import load_knowledge_base
             load_knowledge_base(rag)
+            # Re-initialize vectorstore after loading
+            from langchain_community.vectorstores import Chroma
+            from langchain_core.runnables import RunnablePassthrough
+            from langchain_core.output_parsers import StrOutputParser
+            rag.vectorstore = Chroma(
+                client=rag.client,
+                collection_name="club_knowledge",
+                embedding_function=rag.embeddings
+            )
+            # Re-create QA chain
+            retriever = rag.vectorstore.as_retriever(search_kwargs={"k": 4})
+            def format_docs(docs):
+                return "\n\n".join(doc.page_content for doc in docs)
+            rag.qa_chain = (
+                {"context": retriever | format_docs, "question": RunnablePassthrough()}
+                | rag.prompt_template
+                | rag.llm
+                | StrOutputParser()
+            )
             print("Knowledge base loaded successfully!")
     except Exception as e:
         print(f"Warning: Could not auto-load knowledge base: {e}")
