@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy and install Python dependencies
-# Install CPU-only PyTorch first (much smaller)
+# Install CPU-only PyTorch first (much smaller), then other packages from PyPI
 COPY requirements.txt .
 RUN pip install --user --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
-    pip install --user --no-cache-dir -r requirements.txt && \
+    pip install --user --no-cache-dir discord.py>=2.3.2 openai>=1.12.0 chromadb>=0.4.22 python-dotenv>=1.0.0 langchain>=0.1.10 langchain-openai>=0.0.5 langchain-community>=0.0.20 langchain-groq>=0.1.0 sentence-transformers>=2.2.2 tiktoken>=0.5.2 && \
     pip cache purge
 
 # Final stage - minimal runtime image
