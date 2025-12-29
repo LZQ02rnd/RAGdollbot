@@ -7,5 +7,7 @@ langchain-openai>=0.0.5
 langchain-community>=0.0.20
 langchain-groq>=0.1.0
 sentence-transformers>=2.2.2
+--index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0
 tiktoken>=0.5.2
 

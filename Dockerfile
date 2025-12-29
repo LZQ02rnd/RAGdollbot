@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy and install Python dependencies
+# Install CPU-only PyTorch first (much smaller)
 COPY requirements.txt .
-RUN pip install --user --no-cache-dir -r requirements.txt
+RUN pip install --user --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --user --no-cache-dir -r requirements.txt && \
+    pip cache purge
 
 # Final stage - minimal runtime image
 FROM python:3.11-slim
@@ -27,10 +30,13 @@ ENV PATH=/root/.local/bin:$PATH
 COPY bot.py config.py rag_system.py knowledge_loader.py ./
 COPY knowledge_base ./knowledge_base
 
-# Clean up
+# Clean up and remove unnecessary files
 RUN apt-get update && apt-get clean && rm -rf /var/lib/apt/lists/* && \
     find /root/.local -type d -name "__pycache__" -exec rm -r {} + 2>/dev/null || true && \
-    find /root/.local -type f -name "*.pyc" -delete
+    find /root/.local -type f -name "*.pyc" -delete && \
+    find /root/.local -type f -name "*.pyo" -delete && \
+    rm -rf /root/.cache && \
+    rm -rf /tmp/*
 
 # Run the bot
 CMD ["python", "bot.py"]
