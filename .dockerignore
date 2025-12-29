@@ -14,6 +14,7 @@ ENV/
 build/
 dist/
 *.egg-info/
+.pytest_cache/
 
 # Environment
 .env
@@ -37,6 +38,8 @@ chroma_db/
 test_*.py
 check_setup.py
 setup.py
+test_bot_init.py
+test_rag.py
 
 # Documentation
 *.md
@@ -49,4 +52,11 @@ setup.py
 
 # Railway
 railway.json
+Procfile
+RAILWAY_DEPLOY.md
+
+# Large model files (will download at runtime)
+*.bin
+*.safetensors
+*.onnx
 
